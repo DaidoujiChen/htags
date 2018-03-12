@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"google.golang.org/appengine"
+	"google.golang.org/appengine/urlfetch"
 )
 
 const (
@@ -31,11 +32,13 @@ func clearString(s string) string {
 	return result
 }
 
-func fetchCategories() ([]string, error) {
+func fetchCategories(r *http.Request) ([]string, error) {
 	categories := []string{}
 
 	// 取得 category 列表網址們
-	res, err := http.Get(rawURL + index + ".md")
+	ctx := appengine.NewContext(r)
+	client := urlfetch.Client(ctx)
+	res, err := client.Get(rawURL + index + ".md")
 	if err != nil {
 		return categories, err
 	}
@@ -57,11 +60,13 @@ func fetchCategories() ([]string, error) {
 	return categories, nil
 }
 
-func fetchContentsIn(category string) (map[string]string, error) {
+func fetchContentsIn(category string, r *http.Request) (map[string]string, error) {
 	contents := map[string]string{}
 
 	// 取得該 category 的 raw data
-	res, err := http.Get(rawURL + category + ".md")
+	ctx := appengine.NewContext(r)
+	client := urlfetch.Client(ctx)
+	res, err := client.Get(rawURL + category + ".md")
 	if err != nil {
 		return contents, err
 	}
@@ -90,7 +95,7 @@ func fetchContentsIn(category string) (map[string]string, error) {
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	categories, err := fetchCategories()
+	categories, err := fetchCategories(r)
 	if err != nil {
 		io.WriteString(w, err.Error())
 		return
@@ -98,7 +103,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 	allContents := map[string]string{}
 	for _, category := range categories {
-		contents, err := fetchContentsIn(category)
+		contents, err := fetchContentsIn(category, r)
 		if err != nil {
 			io.WriteString(w, err.Error())
 			return
