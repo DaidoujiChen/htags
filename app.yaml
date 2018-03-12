@@ -5,7 +5,7 @@ handlers:
 - url: /.*
   script: _go_app
 
-instance_class: F1
+instance_class: B1
 
 basic_scaling:
   max_instances: 1
