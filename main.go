@@ -87,7 +87,7 @@ func fetchContentsIn(category string) (map[string]string, error) {
 	return contents, nil
 }
 
-func htags(w http.ResponseWriter, r *http.Request) {
+func indexHandler(w http.ResponseWriter, r *http.Request) {
 	categories, err := fetchCategories()
 	if err != nil {
 		io.WriteString(w, err.Error())
@@ -117,6 +117,5 @@ func htags(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/htags", htags)
-	http.ListenAndServe(":8030", nil)
+	http.HandleFunc("/", indexHandler)
 }
