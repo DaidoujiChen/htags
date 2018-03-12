@@ -4,3 +4,12 @@ api_version: go1
 handlers:
 - url: /.*
   script: _go_app
+
+instance_class: B1
+
+automatic_scaling:
+  min_idle_instances: 0
+  max_idle_instances: 1
+  min_pending_latency: 250ms
+  max_pending_latency: 1000ms
+  max_concurrent_requests: 80

@@ -1,0 +1,7 @@
+#install glcoud
+apt-get update
+apt-get install -y apt-transport-https
+echo "deb https://packages.cloud.google.com/apt cloud-sdk-jessie main" | tee -a /etc/apt/sources.list.d/google-cloud.list
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+apt-get update
+apt-get install -y google-cloud-sdk-app-engine-go
