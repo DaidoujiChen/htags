@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"regexp"
 	"strings"
+
+	"google.golang.org/appengine"
 )
 
 const (
@@ -118,4 +120,5 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", indexHandler)
+	appengine.Main()
 }
