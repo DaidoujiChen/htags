@@ -2,11 +2,14 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"regexp"
 	"strings"
+
+	"google.golang.org/appengine"
 )
 
 const (
@@ -125,5 +128,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	startService(indexHandler)
+	fmt.Println("Start in App Engine")
+	http.HandleFunc("/", indexHandler)
+	appengine.Main()
 }
