@@ -19,13 +19,12 @@ func isEmpty(s string) bool {
 }
 
 func clearString(s string) string {
-	result := s
-	if strings.HasPrefix(s, " ") {
-		result = result[1:]
-	}
-	if strings.HasSuffix(result, " ") {
-		result = result[:len(result)-1]
-	}
+	preAndSufSpaceReg := regexp.MustCompile(`^[\s\p{Zs}]+|[\s\p{Zs}]+$`)
+	insideSpaceReg := regexp.MustCompile(`[\s\p{Zs}]{2,}`)
+	removeImageReg := regexp.MustCompile(`(?im)!\[.*]\(.*\)`)
+	result := preAndSufSpaceReg.ReplaceAllString(s, "")
+	result = insideSpaceReg.ReplaceAllString(result, " ")
+	result = removeImageReg.ReplaceAllString(result, "")
 	return result
 }
 

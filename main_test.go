@@ -15,7 +15,7 @@ func TestClearString(t *testing.T) {
 		{"TestClearString - 5", "", ""},
 		{"TestClearString - 6", " ", ""},
 		{"TestClearString - 7", "  ", ""},
-		{"TestClearString - 8", "   ", " "},
+		{"TestClearString - 8", "   ", ""},
 		{"TestClearString - 9", " he llo ", "he llo"},
 	}
 	for _, tt := range tests {
