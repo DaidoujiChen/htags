@@ -7,9 +7,6 @@ import (
 	"net/http"
 	"regexp"
 	"strings"
-
-	"google.golang.org/appengine"
-	"google.golang.org/appengine/urlfetch"
 )
 
 const (
@@ -36,9 +33,7 @@ func fetchCategories(r *http.Request) ([]string, error) {
 	categories := []string{}
 
 	// 取得 category 列表網址們
-	ctx := appengine.NewContext(r)
-	client := urlfetch.Client(ctx)
-	res, err := client.Get(rawURL + index + ".md")
+	res, err := httpGet(rawURL+index+".md", r)
 	if err != nil {
 		return categories, err
 	}
@@ -64,9 +59,7 @@ func fetchContentsIn(category string, r *http.Request) (map[string]string, error
 	contents := map[string]string{}
 
 	// 取得該 category 的 raw data
-	ctx := appengine.NewContext(r)
-	client := urlfetch.Client(ctx)
-	res, err := client.Get(rawURL + category + ".md")
+	res, err := httpGet(rawURL+category+".md", r)
 	if err != nil {
 		return contents, err
 	}
@@ -124,6 +117,5 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", indexHandler)
-	appengine.Main()
+	startService(indexHandler)
 }
