@@ -30,7 +30,7 @@ func httpGet(url string, r *http.Request) (*http.Response, error) {
 	if isInAppEngine {
 		ctx := appengine.NewContext(r)
 		client := urlfetch.Client(ctx)
-		return client.Get(rawURL + index + ".md")
+		return client.Get(url)
 	} else {
 		return http.Get(url)
 	}
