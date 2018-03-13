@@ -120,7 +120,8 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	io.WriteString(w, string(jsonString))
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonString)
 }
 
 func main() {
