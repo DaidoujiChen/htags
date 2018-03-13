@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"os"
 
 	"google.golang.org/appengine"
 	"google.golang.org/appengine/urlfetch"
@@ -12,7 +11,7 @@ import (
 var isInAppEngine bool
 
 func init() {
-	isInAppEngine = len(os.Getenv("InAppEngine")) != 0
+	isInAppEngine = true
 }
 
 func startService(handler func(http.ResponseWriter, *http.Request)) {
