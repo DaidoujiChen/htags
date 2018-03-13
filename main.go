@@ -102,6 +102,14 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		for k, v := range contents {
+			if exist, ok := allContents[k]; ok {
+				if strings.Contains(exist, v) {
+					continue
+				}
+
+				allContents[k] = exist + "|" + v
+				continue
+			}
 			allContents[k] = v
 		}
 	}
