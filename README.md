@@ -4,7 +4,7 @@
 根據我自己的需求, 我只需要中英文對照而已, 所以就把他整理成一個 json 吐回來.
 
 ## Service Link
-[點我取得列表](https://alltesthere-186305.appspot.com/)
+[點我取得列表](https://s3-ap-northeast-1.amazonaws.com/daidouji-htags/htag.json)
 
 ## Deploy
 這邊是用簡單的 [Buddy](https://app.buddy.works) 來做自動化, 雖然這中間也遇到很多有的沒有的問題就是, 這邊就一次整理起來, 方便未來查找
