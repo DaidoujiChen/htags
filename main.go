@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -128,13 +127,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	if isInAppEngine {
-		fmt.Println("Start in App Engine")
-		http.HandleFunc("/", indexHandler)
-		appengine.Main()
-	} else {
-		fmt.Println("Start for Develop")
-		http.HandleFunc("/", indexHandler)
-		http.ListenAndServe(":8030", nil)
-	}
+	http.HandleFunc("/", indexHandler)
+	// http.ListenAndServe(":8030", nil)
+	appengine.Main()
 }
