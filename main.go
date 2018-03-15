@@ -128,7 +128,13 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	fmt.Println("Start in App Engine")
-	http.HandleFunc("/", indexHandler)
-	appengine.Main()
+	if isInAppEngine {
+		fmt.Println("Start in App Engine")
+		http.HandleFunc("/", indexHandler)
+		appengine.Main()
+	} else {
+		fmt.Println("Start for Develop")
+		http.HandleFunc("/", indexHandler)
+		http.ListenAndServe(":8030", nil)
+	}
 }
